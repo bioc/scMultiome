@@ -4,7 +4,7 @@
 metadata.colonHealthy <- data.frame(
     Title = "Single-cell analysis of samples from healthy human colon",
     Description = "ATACseq and RNAseq data obtained by the colon tissues analysis. Samples were collected from adult human donors.",
-    BiocVersion = "3.16",
+    BiocVersion = "3.17",
     Genome = "hg38",
     SourceType = "tar.gz", # refers to raw data
     SourceUrl = "https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE165659&format=file", # refers to raw data; optional
@@ -17,7 +17,7 @@ metadata.colonHealthy <- data.frame(
     RDataClass = "MultiAssayExperiment", # class that is returned from hub
     DispatchClass = "FilePath", # format saved on disk; FilePath only returns file location
     # Location_Prefix = "", # SKIP if data stored in the Bioconductor AWS S3
-    RDataPath = "scMultiome/colonHealthy"
+    RDataPath = "scMultiome/colonHealthy.h5"
 )
 
 # dataset manifest metadata

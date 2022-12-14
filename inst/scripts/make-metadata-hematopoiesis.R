@@ -5,7 +5,7 @@ metadata.hematopoiesis <-
   data.frame(
     Title = "scATAC-seq and unpaired scRNA-seq of hematopoetic cells",
     Description = "Example scATAC-seq data of hematopoietic cells included in ArchR package was integrated with scRNAseq. ScATAC-seq data was obtained from GSE139369 and scRNA-seq obtained from https://jeffgranja.s3.amazonaws.com/ArchR/TestData/scRNA-Hematopoiesis-Granja-2019.rds",
-    BiocVersion = "3.16",
+    BiocVersion = "3.17",
     Genome = "hg19",
     SourceType = "FASTQ", # refers to raw data
     SourceUrl = "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE139369", # refers to raw data

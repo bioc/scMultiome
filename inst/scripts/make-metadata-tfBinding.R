@@ -4,7 +4,7 @@
 metadata.tfBinding.hg38 <- data.frame(
     Title = "TF Binding Info Hg38 (ChIP-Atlas and ENCODE)",
     Description = "Combined transcription factor ChIP-seq data from ChIP-Atlas and ENCODE",
-    BiocVersion = "3.16",
+    BiocVersion = "3.17 ",
     Genome = "hg38",
     SourceType = "BED", # refers to raw data
     SourceUrl = "https://github.com/inutano/chip-atlas/",
@@ -16,13 +16,13 @@ metadata.tfBinding.hg38 <- data.frame(
     Maintainer = desc::desc_get_maintainer(),
     RDataClass = "GRangesList",
     DispatchClass = "FilePath",
-    RDataPath = "scMultiome/tfBinding_hg38"
+    RDataPath = "scMultiome/tfBinding_hg38.rds"
 )
 
 metadata.tfBinding.hg38.cistrome <- data.frame(
     Title = "TF Binding Info Hg38 (CistromeDB and ENCODE)",
     Description = "Combined transcription factor ChIP-seq data from CistromeDB and ENCODE",
-    BiocVersion = "3.16",
+    BiocVersion = "3.17",
     Genome = "hg38",
     SourceType = "BED", # refers to raw data
     SourceUrl = "http://cistrome.org/db/#/bdown",
@@ -34,12 +34,12 @@ metadata.tfBinding.hg38.cistrome <- data.frame(
     Maintainer = desc::desc_get_maintainer(),
     RDataClass = "GRangesList",
     DispatchClass = "FilePath",
-    RDataPath = "scMultiome/tfBinding_hg38_cistrome"
+    RDataPath = "scMultiome/tfBinding_hg38_cistrome.rds"
 )
 metadata.tfBinding.hg19 <- data.frame(
     Title = "TF Binding Info Hg19 (ChIP-Atlas and ENCODE)",
     Description = "Combined transcription factor ChIP-seq data from ChIP-Atlas and ENCODE",
-    BiocVersion = "3.16",
+    BiocVersion = "3.17",
     Genome = "hg19",
     SourceType = "BED", # refers to raw data
     SourceUrl = "https://github.com/inutano/chip-atlas/",
@@ -51,12 +51,12 @@ metadata.tfBinding.hg19 <- data.frame(
     Maintainer = desc::desc_get_maintainer(),
     RDataClass = "GRangesList",
     DispatchClass = "FilePath",
-    RDataPath = "scMultiome/tfBinding_hg19"
+    RDataPath = "scMultiome/tfBinding_hg19.rds"
 )
 metadata.tfBinding.hg19.cistrome <- data.frame(
     Title = "TF Binding Info Hg19 (CistromeDB and ENCODE)",
     Description = "Combined transcription factor ChIP-seq data from CistromeDB and ENCODE",
-    BiocVersion = "3.16",
+    BiocVersion = "3.17",
     Genome = "hg19",
     SourceType = "BED", # refers to raw data
     SourceUrl = "http://cistrome.org/db/#/bdown",
@@ -68,12 +68,12 @@ metadata.tfBinding.hg19.cistrome <- data.frame(
     Maintainer = desc::desc_get_maintainer(),
     RDataClass = "GRangesList",
     DispatchClass = "FilePath",
-    RDataPath = "scMultiome/tfBinding_hg19_cistrome"
+    RDataPath = "scMultiome/tfBinding_hg19_cistrome.rds"
 )
 metadata.tfBinding.mm10 <- data.frame(
     Title = "TF Binding Info Mm10 (ChIP-Atlas and ENCODE)",
     Description = "Combined transcription factor ChIP-seq data from ChIP-Atlas and ENCODE",
-    BiocVersion = "3.16",
+    BiocVersion = "3.17",
     Genome = "mm10",
     SourceType = "BED", # refers to raw data
     SourceUrl = "https://github.com/inutano/chip-atlas/",
@@ -85,12 +85,12 @@ metadata.tfBinding.mm10 <- data.frame(
     Maintainer = desc::desc_get_maintainer(),
     RDataClass = "GRangesList",
     DispatchClass = "FilePath",
-    RDataPath = "scMultiome/tfBinding_mm10"
+    RDataPath = "scMultiome/tfBinding_mm10.rds"
 )
 metadata.tfBinding.mm10.cistrome <- data.frame(
     Title = "TF Binding Info Mm10 (CistromeDB and ENCODE)",
     Description = "Combined transcription factor ChIP-seq data from CistromeDB and ENCODE",
-    BiocVersion = "3.16",
+    BiocVersion = "3.17",
     Genome = "mm10",
     SourceType = "BED", # refers to raw data
     SourceUrl = "http://cistrome.org/db/#/bdown",
@@ -102,7 +102,7 @@ metadata.tfBinding.mm10.cistrome <- data.frame(
     Maintainer = desc::desc_get_maintainer(),
     RDataClass = "GRangesList",
     DispatchClass = "FilePath",
-    RDataPath = "scMultiome/tfBinding_mm10_cistrome"
+    RDataPath = "scMultiome/tfBinding_mm10_cistrome.rds"
 )
 # dataset manifest metadata
 # see ?listDatasets for details

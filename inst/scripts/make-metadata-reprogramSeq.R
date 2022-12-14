@@ -5,7 +5,7 @@ metadata.reprogramSeq <-
   data.frame(
     Title = "Reprogram-seq of LNCaP cells",
     Description = "scMultiome data of LNCaP infected with FOXA1, NKX2-1, GATA6",
-    BiocVersion = "3.16",
+    BiocVersion = "3.17",
     Genome = "hg38",
     SourceType = "HDF5", # refers to raw data
     SourceUrl = "https://www.ncbi.nlm.nih.gov/geo/", # refers to raw data
@@ -18,7 +18,7 @@ metadata.reprogramSeq <-
     RDataClass = "MultiAssayExperiment", # class that is returned from hub
     DispatchClass = "FilePath", # format saved on disk; FilePath only returns file location
     # Location_Prefix = "", # SKIP if data stored in the Bioconductor AWS S3
-    RDataPath = "scMultiome/reprogramSeq"
+    RDataPath = "scMultiome/reprogramSeq.h5"
 )
 
 # dataset manifest metadata
