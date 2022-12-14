@@ -65,15 +65,20 @@ tfBinding <- function(genome = c("hg38", "hg19", "mm10", "hg38_cistrome", "hg19_
                       metadata = FALSE) {
     checkmate::assertFlag(metadata)
     genome <- match.arg(genome, several.ok = FALSE)
-
-    genomeName <- sprintf("tfBinding_%s", genome)
-    eh <- AnnotationHub::query(ExperimentHub::ExperimentHub(), c("scMultiome", genomeName))
-
+    eh <- AnnotationHub::query(ExperimentHub::ExperimentHub(), c("scMultiome"))
+    eh_ID <- switch(genome,
+                    hg19 = "EH7794",
+                    hg19_cistrome = "EH7795",
+                    hg38 = "EH7796",
+                    hg38_cistrome = "EH7797",
+                    mm10 = "EH7798",
+                    mm10_cistrome = "EH7799"
+    )
     ans <-
         if (metadata) {
-            eh[genomeName]
+            eh[eh_ID]
         } else {
-            readRDS(eh[[genomeName]])
+            readRDS(eh[[eh_ID]])
         }
 
     return(ans)
