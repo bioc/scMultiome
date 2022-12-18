@@ -12,8 +12,9 @@ Authors@R: c(
 Description: Single cell multiome data, containing chromatin accessibility
     (scATAC-seq) and gene expression (scRNA-seq) information analyzed with
     the ArchR package and presented as MultiAssayExperiment objects.
-License: CREATIVE COMMONS PUBLIC LICENSE
+License: file LICENSE
 Depends: 
+    R (>= 4.2.0),
     AnnotationHub,
     ExperimentHub,
     MultiAssayExperiment,
