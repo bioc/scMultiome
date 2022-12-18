@@ -295,5 +295,9 @@ Consult [this vignette](https://www.bioconductor.org/packages/release/bioc/vigne
 If you found any of this vignette or the process confusing, we would welcome feedback and gladly add more clarifications. Please email the package maintainer, `r desc::desc_get_maintainer()`.
 
 
+# Session Info
 
+```{r}
+sessionInfo()
+```
 <br><br><br>
