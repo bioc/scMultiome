@@ -231,7 +231,7 @@ assign.tile.rowranges <- function(se, chrSizes) {
             )
         )
         # adjust the tiles on the end of the chromosomes to match the chromosome ends
-        for (chr in seqlevels(rowRanges(se))) {
+        for (chr in GenomeInfoDb::seqlevels(rowRanges(se))) {
             chr.end <- BiocGenerics::end(chrSizes)[as.logical(seqnames(chrSizes) == chr)]
             BiocGenerics::end(rowRanges(se))[as.logical(seqnames(rowRanges(se)) == chr) &
                                                  BiocGenerics::end(rowRanges(se)) > chr.end] <- chr.end
