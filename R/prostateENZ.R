@@ -42,7 +42,10 @@
 #' ```
 #'
 #' @examples
+#' \dontrun{
 #' prostateENZ()
+#' }
+#'
 #'
 #' @export
 #'

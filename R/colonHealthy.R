@@ -38,7 +38,9 @@
 #' ```
 #'
 #' @examples
+#' \dontrun{
 #' reprogramSeq()
+#' }
 #'
 #' @export
 #'

@@ -49,8 +49,9 @@ elements of the requested experiment(s), reassembles them, and builds an MAE.
 }
 
 \examples{
+\dontrun{
 hematopoiesis()
-
+}
 }
 \references{
 Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia

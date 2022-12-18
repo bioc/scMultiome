@@ -31,8 +31,9 @@
 #' ```
 #'
 #' @examples
+#' \dontrun{
 #' hematopoiesis()
-#'
+#' }
 #' @export
 #'
 hematopoiesis <-

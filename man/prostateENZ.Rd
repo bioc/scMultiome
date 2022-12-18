@@ -8,7 +8,7 @@
 Annotated with the Hg38 genome build.
 Contains the following experiments:
 \itemize{
-\item{\strong{TileMatrix500}: SingleCellExperiment with 6062095 rows and 15522 columns}
+\item{\strong{TileMatrix}: SingleCellExperiment with 6062095 rows and 15522 columns}
 \item{\strong{GeneScoreMatrix}: SingleCellExperiment with 24919 rows and 15522 columns}
 \item{\strong{GeneIntegrationMatrix}: SingleCellExperiment with 23525 rows and 15522 columns}
 \item{\strong{PeakMatrix}: SingleCellExperiment with 80210 rows and 15522 columns}
@@ -18,8 +18,8 @@ Contains the following experiments:
 \usage{
 prostateENZ(
   metadata = FALSE,
-  experiments = c("TileMatrix500", "GeneScoreMatrix", "GeneIntegrationMatrix",
-    "PeakMatrix", "MotifMatrix")
+  experiments = c("TileMatrix", "GeneScoreMatrix", "GeneIntegrationMatrix", "PeakMatrix",
+    "MotifMatrix")
 )
 }
 \arguments{
@@ -209,7 +209,10 @@ saveMAE("inst/extdata/prostateENZ.h5")
 }
 
 \examples{
+\dontrun{
 prostateENZ()
+}
+
 
 }
 \references{

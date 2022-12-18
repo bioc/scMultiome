@@ -57,7 +57,8 @@
 #' ```
 #'
 #' @examples
-#' tfBinding("mm10")
+#' \dontrun{
+#' tfBinding("mm10")}
 #'
 #' @export
 #'

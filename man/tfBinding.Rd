@@ -393,7 +393,8 @@ saveRDS(grl_hg19, file = "hg19_motif_bed_granges.rds")
 }
 
 \examples{
-tfBinding("mm10")
+\dontrun{
+tfBinding("mm10")}
 
 }
 \references{
