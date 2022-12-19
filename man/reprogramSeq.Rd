@@ -51,7 +51,12 @@ elements of the requested experiment(s), reassembles them, and builds an MAE.
 }
 
 \examples{
+# check metada of dataset
+reprogramSeq(metadata = TRUE)
+# download data
+\dontrun{
 reprogramSeq()
+}
 
 }
 \references{

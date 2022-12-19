@@ -393,6 +393,9 @@ saveRDS(grl_hg19, file = "hg19_motif_bed_granges.rds")
 }
 
 \examples{
+# check metada of dataset
+tfBinding("mm10", metadata = TRUE)
+# download data
 \dontrun{
 tfBinding("mm10")}
 

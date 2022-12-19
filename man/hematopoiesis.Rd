@@ -49,6 +49,9 @@ elements of the requested experiment(s), reassembles them, and builds an MAE.
 }
 
 \examples{
+# check metada of dataset
+hematopoiesis(metadata = TRUE)
+# download data
 \dontrun{
 hematopoiesis()
 }

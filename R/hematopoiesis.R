@@ -31,6 +31,9 @@
 #' ```
 #'
 #' @examples
+#' # check metada of dataset
+#' hematopoiesis(metadata = TRUE)
+#' # download data
 #' \dontrun{
 #' hematopoiesis()
 #' }

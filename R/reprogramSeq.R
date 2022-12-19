@@ -30,7 +30,12 @@
 #' ```
 #'
 #' @examples
+#' # check metada of dataset
+#' reprogramSeq(metadata = TRUE)
+#' # download data
+#' \dontrun{
 #' reprogramSeq()
+#' }
 #'
 #' @export
 #'

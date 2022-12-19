@@ -57,6 +57,9 @@
 #' ```
 #'
 #' @examples
+#' # check metada of dataset
+#' tfBinding("mm10", metadata = TRUE)
+#' # download data
 #' \dontrun{
 #' tfBinding("mm10")}
 #'

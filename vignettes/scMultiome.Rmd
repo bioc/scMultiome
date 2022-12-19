@@ -29,7 +29,7 @@ The `scMultiome` package is a collection of public single cell multiome data set
 
 
 # Installation
-``` {r}
+``` {r, eval = FALSE}
 if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 
 BiocManager::install("scMultiome")
@@ -146,17 +146,13 @@ To work in developer mode, you must first clone the package repository with `git
 
 Start an R session in the package directory (e.g. by opening the RStudio project in RStudio) and load all the functions. This is necessary for the R engine to temporarily identify your working directory as the package installation directory, and to expose the internal functions that you will be using.
 
-```{r devtoolsAvailable, include = FALSE}
+```{r, eval = FALSE, devtoolsAvailable, include = FALSE}
 devtoolsAvailable <- requireNamespace("devtools", quietly = TRUE)
 
 if (devtoolsAvailable) {
     # attach development version of the package
     devtools::load_all()
 }
-
-```
-```{r devtools, eval = FALSE}
-devtools::load_all()
 
 ```
 
@@ -201,7 +197,7 @@ makeMakeMetadata("dataset")
 Once your `make-metadata` file is ready, build the metadata by running the `inst/scripts/make-metadata.R` script. This must run without errors. If successful,
 all the datasets will be captured in `inst/extdata/manifest.csv` and `inst/extdata/metadata.csv`
 
-```{r build metadata, eval = FALSE}
+```{r build metadata}
 # this will add your metadata
 source(system.file("scripts", "make-metadata.R", package = "scMultiome"))
 
@@ -210,7 +206,7 @@ source(system.file("scripts", "make-metadata.R", package = "scMultiome"))
 Subsequently, validate the correctness of the metadata by the running `makeExperimentHubMetadata` function. This call must also run without errors. It will return an `ExperimentHub` object that will display your metadata in the form that the end users will see it.
 
 
-```{r validation, eval = FALSE, class.output = "scroll250"}
+```{r validation, class.output = "scroll250"}
 # this will validate your metadata (not shown)
 ExperimentHubData::makeExperimentHubMetadata(dirname(system.file(package = "scMultiome")))
 
@@ -248,7 +244,7 @@ makeR("dataset")
 ```
 
 Once the files are ready, build the documentation, and `?scMultiome` and `?<DATASET_NAME>` to review it.
-```{r documentation, eval = FALSE}
+```{r documentation}
 # build documentation
 devtools::document()
 

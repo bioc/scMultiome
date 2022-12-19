@@ -38,8 +38,11 @@
 #' ```
 #'
 #' @examples
+#' # check metada of dataset
+#' colonHealthy(metadata = TRUE)
+#' # download data
 #' \dontrun{
-#' reprogramSeq()
+#' colonHealthy()
 #' }
 #'
 #' @export

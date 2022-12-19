@@ -42,6 +42,9 @@
 #' ```
 #'
 #' @examples
+#' # check metada of dataset
+#' prostateENZ(metadata = TRUE)
+#' # download data
 #' \dontrun{
 #' prostateENZ()
 #' }

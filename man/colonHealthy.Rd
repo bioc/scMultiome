@@ -232,8 +232,11 @@ elements of the requested experiment(s), reassembles them, and builds an MAE.
 }
 
 \examples{
+# check metada of dataset
+colonHealthy(metadata = TRUE)
+# download data
 \dontrun{
-reprogramSeq()
+colonHealthy()
 }
 
 }
