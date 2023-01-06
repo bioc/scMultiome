@@ -3,22 +3,24 @@
 #'
 #' Combined transcription factor ChIP-seq data from ChIP-Atlas and ENCODE or
 #' from CistromeDB and ENCODE.
+#'
 #' This is a special data set that stores transcription factor binding sites for human and
 #' mouse genomic builds, which can be used with the package epiregulon to compute regulons.
 #'
 #' @inheritParams prostateENZ
-#' @param genome String indicating the genomic build
+#' @param genome character string specifying the genomic build
+#' @param source character string specifying the ChIP-seq data source
 #'
-#' @return Granges List of TF binding sites
+#' @return A list of TF binding sites as a \code{GrangesList} object.
 #'
 #' @format
-#' \code{GRangeList} object containing binding site information of transcription factor
-#' ChIP-seq merged from ChIPAtlas database and ENCODE.
+#' \code{GRangesList} object containing binding site information
+#' of transcription factor ChIP-seq.
 #' Contains the following experiments:
 #' \itemize{
-#'   \item{\strong{hg38}: GRangesList object of length 1558}
-#'   \item{\strong{hg19}: GRangesList object of length 1558}
-#'   \item{\strong{mm10}: GRangesList object of length 768}
+#'   \item{\strong{hg38_atlas}: GRangesList object of length 1558}
+#'   \item{\strong{hg19_atlas}: GRangesList object of length 1558}
+#'   \item{\strong{mm10_atlas}: GRangesList object of length 768}
 #'   \item{\strong{hg38_cistrome}: GRangesList object of length 1269}
 #'   \item{\strong{hg19_cistrome}: GRangesList object of length 1271}
 #'   \item{\strong{mm10_cistrome}: GRangesList object of length 544}
@@ -61,23 +63,20 @@
 #' tfBinding("mm10", metadata = TRUE)
 #' # download data
 #' \dontrun{
-#' tfBinding("mm10")}
+#' tfBinding("mm10", "atlas")
+#' tfBinding("mm10", "cistrome")
+#' }
 #'
 #' @export
 #'
-tfBinding <- function(genome = c("hg38", "hg19", "mm10", "hg38_cistrome", "hg19_cistrome", "mm10_cistrome"),
+tfBinding <- function(genome = c("hg38", "hg19", "mm10"),
+                      source = c("atlas", "cistrome"),
                       metadata = FALSE) {
     checkmate::assertFlag(metadata)
     genome <- match.arg(genome, several.ok = FALSE)
-    eh <- AnnotationHub::query(ExperimentHub::ExperimentHub(), c("scMultiome"))
-    eh_ID <- switch(genome,
-                    hg19 = "EH7794",
-                    hg19_cistrome = "EH7795",
-                    hg38 = "EH7796",
-                    hg38_cistrome = "EH7797",
-                    mm10 = "EH7798",
-                    mm10_cistrome = "EH7799"
-    )
+    source <- match.arg(source, several.ok = FALSE)
+    eh <- AnnotationHub::query(ExperimentHub::ExperimentHub(),
+                               pattern = c("scMultiome", "tfBinding", source, genome))
     ans <-
         if (metadata) {
             eh[eh_ID]

@@ -16,7 +16,7 @@
 makeDataSetList <- function(metadata) {
     checkmate::assertDataFrame(metadata)
 
-    names <- basename(metadata[["RDataPath"]])
+    names <- tools::file_path_sans_ext(basename(metadata[["RDataPath"]]))
     titles <- metadata[["Title"]]
 
     fileName <- file.path(system.file("scripts", package = "scMultiome"), "datasetList.Rmd")
