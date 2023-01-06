@@ -4,13 +4,13 @@
 \alias{tfBinding}
 \title{TF Binding Info}
 \format{
-\code{GRangeList} object containing binding site information of transcription factor
-ChIP-seq merged from ChIPAtlas database and ENCODE.
+\code{GRangesList} object containing binding site information
+of transcription factor ChIP-seq.
 Contains the following experiments:
 \itemize{
-\item{\strong{hg38}: GRangesList object of length 1558}
-\item{\strong{hg19}: GRangesList object of length 1558}
-\item{\strong{mm10}: GRangesList object of length 768}
+\item{\strong{hg38_atlas}: GRangesList object of length 1558}
+\item{\strong{hg19_atlas}: GRangesList object of length 1558}
+\item{\strong{mm10_atlas}: GRangesList object of length 768}
 \item{\strong{hg38_cistrome}: GRangesList object of length 1269}
 \item{\strong{hg19_cistrome}: GRangesList object of length 1271}
 \item{\strong{mm10_cistrome}: GRangesList object of length 544}
@@ -18,21 +18,26 @@ Contains the following experiments:
 }
 \usage{
 tfBinding(
-  genome = c("hg38", "hg19", "mm10", "hg38_cistrome", "hg19_cistrome", "mm10_cistrome"),
+  genome = c("hg38", "hg19", "mm10"),
+  source = c("atlas", "cistrome"),
   metadata = FALSE
 )
 }
 \arguments{
-\item{genome}{String indicating the genomic build}
+\item{genome}{character string specifying the genomic build}
+
+\item{source}{character string specifying the ChIP-seq data source}
 
 \item{metadata}{logical flag specifying whether to return data or metadata only}
 }
 \value{
-Granges List of TF binding sites
+A list of TF binding sites as a \code{GrangesList} object.
 }
 \description{
 Combined transcription factor ChIP-seq data from ChIP-Atlas and ENCODE or
 from CistromeDB and ENCODE.
+}
+\details{
 This is a special data set that stores transcription factor binding sites for human and
 mouse genomic builds, which can be used with the package epiregulon to compute regulons.
 }
@@ -397,7 +402,9 @@ saveRDS(grl_hg19, file = "hg19_motif_bed_granges.rds")
 tfBinding("mm10", metadata = TRUE)
 # download data
 \dontrun{
-tfBinding("mm10")}
+tfBinding("mm10", "atlas")
+tfBinding("mm10", "cistrome")
+}
 
 }
 \references{

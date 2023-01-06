@@ -64,12 +64,11 @@ See the help files for accessor functions for possible extra options, e.g. `?pro
 
 ## Transcription Factor Binding Motifs
 
-The package contains additional data sets that contain information on transcription factor binding. These are not multiome data but compiled ChIP-seq data that can be used together with multiomes to compute epiregulons. Currently three genomic builds genomes are provided: hg38, hg19, and mm10.
+The package contains additional data sets that contain information on transcription factor binding. These are not multiome data but compiled ChIP-seq data that can be used together with multiomes to compute epiregulons. Currently three genomic builds genomes are provided: hg38, hg19, and mm10. Each genome was built with combined ChIP-seq data from ChIP-Atlas and ENCODE or CistromeDB and ENCODE.
 
-The ChIP-seq data is packaged into individual RDS files but they are accessed with a common accessor function, `tfBinding`. Only one subset can be retrieved at a time, a genome must be specified.
+The ChIP-seq data is packaged into individual RDS files but they are accessed with a common accessor function, `tfBinding`. Only one build can be retrieved at a time, a genome and data source must be specified.
 ```{r, eval = FALSE}
-tfBinding("hg38")
-
+tfBinding("hg38", "atlas")
 ```
 
 <br><br><br>
