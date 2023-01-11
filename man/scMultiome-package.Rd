@@ -24,12 +24,12 @@ See \code{?<DATASET_NAME>} for details on particular data sets, e.g. \code{?pros
 \item \strong{hematopoiesis}: scATAC-seq and unpaired scRNA-seq of hematopoetic cells
 \item \strong{prostateENZ}: LNCaP Cells Treated with Enzalutamide
 \item \strong{reprogramSeq}: Reprogram-seq of LNCaP cells
-\item \strong{tfBinding_hg19_atlas}: TF Binding Info Hg19 (ChIP-Atlas and ENCODE)
-\item \strong{tfBinding_hg19_cistrome}: TF Binding Info Hg19 (CistromeDB and ENCODE)
-\item \strong{tfBinding_hg38_atlas}: TF Binding Info Hg38 (ChIP-Atlas and ENCODE)
-\item \strong{tfBinding_hg38_cistrome}: TF Binding Info Hg38 (CistromeDB and ENCODE)
-\item \strong{tfBinding_mm10_atlas}: TF Binding Info Mm10 (ChIP-Atlas and ENCODE)
-\item \strong{tfBinding_mm10_cistrome}: TF Binding Info Mm10 (CistromeDB and ENCODE)
+\item \strong{tfBinding_hg19_atlas}: TF Binding Info hg19 (ChIP-Atlas and ENCODE)
+\item \strong{tfBinding_hg19_cistrome}: TF Binding Info hg19 (CistromeDB and ENCODE)
+\item \strong{tfBinding_hg38_atlas}: TF Binding Info hg38 (ChIP-Atlas and ENCODE)
+\item \strong{tfBinding_hg38_cistrome}: TF Binding Info hg38 (CistromeDB and ENCODE)
+\item \strong{tfBinding_mm10_atlas}: TF Binding Info mm10 (ChIP-Atlas and ENCODE)
+\item \strong{tfBinding_mm10_cistrome}: TF Binding Info mm10 (CistromeDB and ENCODE)
 }
 }
 

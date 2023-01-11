@@ -1,5 +1,6 @@
 ---
 title: "scMultiome tutorial"
+author: Aleksander Chlebowski and Xiaosai Yao
 output:
   BiocStyle::html_document:
     toc: true
@@ -16,16 +17,16 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = FALSE
+  eval = TRUE
 )
 ```
 
 
 # Introduction
 
-Single cell data is gaining sophistication - Cells can be measured in multiple modalities including gene expression, chromatin accessibility, cell surface markers and protein expression. These orthogonal measures of the same or matched cells enable a holistic construction of the cell state. However it has been challenging to share multiomic data, especially in an integrated format that consolidates the multiple layers of measurements. The `MultiAssayExperiment` provides a framework to package the various modalities into a single dataset on a per cell basis.
+Single cell data is gaining sophistication - Cells can be measured in multiple modalities including gene expression, chromatin accessibility, cell surface markers and protein expression. These orthogonal measures of the same or matched cells enable a holistic construction of the cell state. However it has been challenging to share multiomic data, especially in an integrated format that consolidates the multiple layers of measurement. The `MultiAssayExperiment` provides a framework to package the various modalities into a single dataset on a per cell basis.
 
-The `scMultiome` package is a collection of public single cell multiome data sets pre-processed and packaged into `MultiAssayExperiment` objects for downstream analysis. It also provides basic functions to save the `MultiAssayExperiment` as `.hdf5` files so that users can load only the desired modalities into memory. `scMultiome` provides interface with the package `ArchR` [package](https://www.archrproject.com/) by allowing the conversion of an ArchR project to a `MultiAssayExperiment`.
+The `scMultiome` package is a collection of public single cell multiome data sets pre-processed and packaged into `MultiAssayExperiment` objects for downstream analysis. It also provides basic functions to save the `MultiAssayExperiment` as `.hdf5` files so that users can load only the desired modalities into memory. `scMultiome` provides interface with the `ArchR` [package](https://www.archrproject.com/) by allowing the conversion of an ArchR project to a `MultiAssayExperiment`.
 
 
 # Installation
@@ -41,12 +42,13 @@ BiocManager::install("scMultiome")
 
 ## Available Data Sets
 
-Use the `listDatasets` function to view currently available data sets and the names of their accessor functions. Help pages fot particular accessors contain more information on their data sets.
-```{r, eval = FALSE}
+View currently available data sets and the names of their accessor functions. Help pages for particular accessors contain more information on their data sets.
+
+```{r, results = FALSE, message=FALSE}
 library(scMultiome)
 listDatasets()
 ```
-```{r, echo = FALSE, results = 'asis'}
+```{r, results = 'asis', echo = FALSE}
 lds <- listDatasets()
 knitr::kable(lds, caption = "Available Data Sets")
 
@@ -62,24 +64,34 @@ prostateENZ()
 See the help files for accessor functions for possible extra options, e.g. `?prostateENZ`.
 
 
-## Transcription Factor Binding Motifs
+## Transcription Factor Binding Sites
 
-The package contains additional data sets that contain information on transcription factor binding. These are not multiome data but compiled ChIP-seq data that can be used together with multiomes to compute epiregulons. Currently three genomic builds genomes are provided: hg38, hg19, and mm10. Each genome was built with combined ChIP-seq data from ChIP-Atlas and ENCODE or CistromeDB and ENCODE.
+In addition to single cell multiomic data, the package also provides binding sites of transcription factors, obtained from bulk ChIP-seq studies. There are two sources: 
 
-The ChIP-seq data is packaged into individual RDS files but they are accessed with a common accessor function, `tfBinding`. Only one build can be retrieved at a time, a genome and data source must be specified.
+* `atlas` - merging of ChIP-Atlas and ENCODE 
+* `cistrome` - merging of CistromeDB and ENCODE
+
+Academic institutions are free to use both sources but commercial entities should only use `atlas` due to restrictions imposed by Cistrome-DB.
+
+If multiple ChIP-seq files are available for the same transcription factor, the peaks are merged to create a union set of peaks. Currently three genomic builds genomes are provided: hg38, hg19, and mm10. 
+
+The ChIP-seq data is packaged into individual RDS files and they are accessed with a common accessor function, `tfBinding`, specifying the genome and source.
+
 ```{r, eval = FALSE}
 tfBinding("hg38", "atlas")
 ```
 
 <br><br><br>
 
+
+
+
+
 # Processing data
 
-Current multiomic data sets consist of gene expression and chromatin accessibility but can be extended to include any other modalities. The data sets are either paired multiomic data sets or unpaired data sets with data integration performed by the `ArchR` [package](https://www.archrproject.com/). The `ArchR` projects were converted to `MultiAssayExperiment` objects. [MultiAssayExperiment](https://www.bioconductor.org/packages/devel/bioc/vignettes/MultiAssayExperiment/inst/doc/MultiAssayExperiment.html) objects can be constructed easily from individual matrices pre-processed by users' favorite packages.
+This package is a data repository for single cell multiome data within `ExperimentHub`. It also provides a framework to add more multiome data. This vignette will guide you from data analysis to data upload.
 
-The `MultiAssayExperiment` object is saved in hdf5 files. The nature of the hdf5 format allows the MAEs to be split into individual experiments and store them in one file, so you can choose freely which ones to load. Experiments, usually `SingleCellExperiment` objects, are disassembled into parts, which are saved in the hdf5 hierarchy. Assays are saved as sparse arrays to save storage.
-
-Upon loading, selected experiments are reassembled and wrapped into an MAE object. Assays are represented by `DelayedMatrix` objects to save memory.
+In the examples below, we outline data processing and integration of single cell gene expression and chromatin accessibility data using `CellRanger` and `ArchR` but you are free to analyze and integrate your data using any methods as long as the final output is converted to a `MultiAssayExperiment`.
 
 
 ## Raw Data Analysis
@@ -90,6 +102,8 @@ Following that, gene expression data is run through a [scran.chan](https://githu
 
 
 ## ArchR Multiome Workflow
+
+
 
 The general ArchR workflow is outlined below.
 Refer to the [ArchR book](https://www.archrproject.com/bookdown/index.html) for details.
@@ -113,13 +127,16 @@ Refer to the [ArchR book](https://www.archrproject.com/bookdown/index.html) for 
 
 ## Conversion to MAE
 
-ArchR projects were converted to `MultiAssayExperiment` objects with `archr2MAE`. Each Matrix in the project becomes a `SingleCellExperiment`, its `colData` is derived from the project's `cellColData` slot, and `rowData` and `rowRanges` are created as needed. Reduced dimensionalities and embeddings of the project are attached to the matrices they were obtained from and are stored in the `reducedDims` slot.
+ArchR projects are converted to `MultiAssayExperiment` objects. 
+
 
 ```{r archr2MAE, eval = FALSE}
-# convert ArchR project to MAE
 mae <- archr2MAE("<ARCHR_PATH>")
 
 ```
+
+Each Matrix in the project becomes a `SingleCellExperiment`; its `colData` is derived from the project's `cellColData` slot, and `rowData` and `rowRanges` are created as needed. Reduced dimensionalities and embeddings of the project are attached to the matrices they were obtained from and are stored in the `reducedDims` slot.
+
 
 
 ## Contributing
@@ -132,20 +149,18 @@ If you want to contribute your publicly available multiome data set, please read
 
 # Adding Datasets
 
-This package is a data repository for single cell multiome data within `ExperimentHub`. It also provides a framework to add more multiome data with minimal effort but the process cannot be fully automated. This vignette will guide you.
-
-Briefly, data set will be disassembled and saved in a hdf5 file, from which individual experiments can be drawn using its own accessor function. You must provide the data set in hdf5 format, its metadata, its documentation, and finally the accessor function that will retrieve the data from `ExperimentHub`.
+Once the data has been preprocessed and converted into `MultiAssayExperiment`, it can be saved in a hdf5 file using `saveMAE`. You also need to provide metadata, documentation, and the accessor function that will retrieve the data from `ExperimentHub`.
 
 
 ## Developer Mode
 
-Adding data involves updating the package and as such it must be done in "developer mode". The developer mode allows access to additional tools such as documentation templates.
+Adding data involves updating the package and as such, it must be done in "developer mode". The developer mode allows access to additional tools such as documentation templates.
 
 To work in developer mode, you must first clone the package repository with `git`. Create a branch from `master` and work on that.
 
 Start an R session in the package directory (e.g. by opening the RStudio project in RStudio) and load all the functions. This is necessary for the R engine to temporarily identify your working directory as the package installation directory, and to expose the internal functions that you will be using.
 
-```{r, eval = FALSE, devtoolsAvailable, include = FALSE}
+```{r devtoolsAvailable, eval = FALSE, include = FALSE}
 devtoolsAvailable <- requireNamespace("devtools", quietly = TRUE)
 
 if (devtoolsAvailable) {
@@ -158,9 +173,9 @@ if (devtoolsAvailable) {
 
 ## Saving Your Data Set
 
-Currently only `MultiAssayExperiment` objects are supported. Experiments must be objects that inherit from `SummarizedExperiment` and will usually be `SingleCellExperiment`, hence full support is provided for the latter and their slots (`reducedDims` and `altExps`).
+`MultiAssayExperiment` is saved in the hdf5 format as it splits the MAEs into individual experiments so that you can choose to load selected experiments. Upon loading, selected experiments are reassembled and wrapped into an MAE object. Assays are represented by `DelayedMatrix` objects to save memory.and saved as a hdf5 file.
 
-Use `saveMAE` to save your data set to the `R/data` directory. You can use `testFile` to validate that your data set can be reconstructed.
+Currently only `MultiAssayExperiment` objects are supported. Experiments must be objects that inherit from `SummarizedExperiment` and will usually be `SingleCellExperiment`, hence full support is provided for the latter and their slots (`reducedDims` and `altExps`).
 
 ```{r saving, class.output = "scroll250", class.echo = "scroll250"}
 # construct a dummy data set
@@ -173,7 +188,11 @@ fileName <- tempfile(fileext = ".h5")
 # save data set
 saveMAE(mae, fileName)
 
-# test reloading
+```
+
+You can use `testFile` to validate that your data set can be reconstructed.
+
+```{r test reloading}
 testFile(fileName)
 
 ```
@@ -183,52 +202,64 @@ For a detailed explanation of the process see `?saveMAE`.
 
 ## Creating Metadata
 
-Run `makeMakeMetadata("<DATASET_NAME>")` to create a script to store your data set's metadata. It will be called `inst/scripts/make-metadata-<DATASET_NAME>.R`. Metadata must be a 1-row data frame with specific columns and values must be character strings (some fields allow character vectors). See `inst/scripts/make-metadata.R` for more information and `inst/scripts/make-metadata-prostateENZ.R` for an example.
-
-The file also stores metadata that will be returned by `listDatasets`. Likewise, this must be a 1-row data frame and values must be character strings.
-
+To add metadata, we first create a R script to store your data set's metadata. The metadata script provides key information such as data resource, species, genomic build and version number. This R script will be named `inst/scripts/make-metadata-<DATASET_NAME>.R`. 
 
 ```{r making metadata, eval = FALSE}
 makeMakeMetadata("dataset")
-
 ```
 
-Once your `make-metadata` file is ready, build the metadata by running the `inst/scripts/make-metadata.R` script. This must run without errors. If successful,
-all the datasets will be captured in `inst/extdata/manifest.csv` and `inst/extdata/metadata.csv`
+
+Metadata must be a 1-row data frame with specific columns and values must be character strings (some fields allow character vectors). See `inst/scripts/make-metadata.R` for more information and `inst/scripts/make-metadata-prostateENZ.R` for an example.
+
+The file also stores metadata that will be returned by `listDatasets`. Likewise, this must be a 1-row data frame and values must be character strings.
+
+Once your `make-metadata` file is ready, build the metadata 
 
 ```{r build metadata}
-# this will add your metadata
 source(system.file("scripts", "make-metadata.R", package = "scMultiome"))
-
 ```
 
-Subsequently, validate the correctness of the metadata by the running `makeExperimentHubMetadata` function. This call must also run without errors. It will return an `ExperimentHub` object that will display your metadata in the form that the end users will see it.
+This must run without errors. If successful,
+all the datasets will be captured in `inst/extdata/manifest.csv` and `inst/extdata/metadata.csv`
 
+Subsequently, validate metadata 
 
-```{r validation, class.output = "scroll250"}
-# this will validate your metadata (not shown)
+```{r validation, eval = FALSE, class.output = "scroll250"}
 ExperimentHubData::makeExperimentHubMetadata(dirname(system.file(package = "scMultiome")))
-
 ```
+
+This call must also run without errors. It will return an `ExperimentHub` object that will display your metadata in the form that the end users will see it.
+
 
 
 ## Documenting Your Data Set
 
-Every data set needs a help page to describe the source data, references, and whatever else you deem necessary.
-Since every data set is accessed by its own accessor function, the `R` file that defines the function is the natural place to place the data set documentation. The package framework is constructed such that accessor functions are extremely simple and you can basically copy the original one (`prostateENZ`) and most of its documentation.
+Every data set needs an additional documentation to describe how the data was obtained. This doesn't have to be a working script, just a report. Pseudocode is acceptable. Note that code evaluation has been disabled so that you can copy your actual code and the lengthy ArchR analysis does not run again.
 
-The process of obtaining the data set should also be described.
-
-First, run `makeMakeData("<DATASET_NAME>")`. This will create an Rmarkdown file called `inst/scripts/make-data-<DATASET_NAME>.Rmd`. Use it to describe how your data set was obtained. This doesn't have to be a working script, just a report. Pseudocode is acceptable. Note that code evaluation has been disabled so that you can copy your actual code and the lengthy ArchR analysis does not run again.
+Create an Rmarkdown file called `inst/scripts/make-data-<DATASET_NAME>.Rmd`. 
 
 ```{r making, eval = FALSE}
 makeMakeData("dataset")
 
 ```
 
-Second, run `makeR("<DATASET_NAME>")`. This will create an R file called `<DATASET_NAME>.R`, which will provide access and help for your data set. This file will quote the accompanying Rmd file created above. This way the R file itself is more concise and easier to edit. Adjust the file accordingly:
 
-1. Give the file the same Title was used in the `make-metadata-<>.R` file.
+
+## Creating accessor function
+
+Every data set is accessed by its own accessor function, which provides access and help for your data set. 
+For every data set, we create a `R` file that defines the function to retrieve the data set and provide important documentation. The package framework is constructed such that accessor functions are extremely simple and you can basically copy the original one (`prostateENZ`) and most of its documentation.
+
+Create an R file called `<DATASET_NAME>.R`
+
+```{r making2, eval = FALSE}
+makeR("dataset")
+
+```
+
+This file will quote the accompanying Rmd file created above. This way the R file itself is more concise and easier to edit. Adjust the file accordingly:
+
+1. Give the file the same title was used in the `make-metadata-<>.R` file.
 2. Add a Description section.
 3. Document any arguments other than `experiments` and `metadata`.
 4. Describe the format of your `MultiAssayExperiment`.
@@ -237,13 +268,10 @@ Second, run `makeR("<DATASET_NAME>")`. This will create an R file called `<DATAS
 7. If you want to restore custom classes to your experiments, add converting functions here. They do not require documentation or exporting.
 
 
-```{r making2, eval = FALSE}
-makeR("dataset")
-
-```
+## Building documentation
 
 Once the files are ready, build the documentation, and `?scMultiome` and `?<DATASET_NAME>` to review it.
-```{r documentation}
+```{r documentation, eval = FALSE}
 # build documentation
 devtools::document()
 
