@@ -3,6 +3,8 @@
 export(archr2MAE)
 export(assertHDF5)
 export(colonHealthy)
+export(dummyMAE)
+export(dummySCE)
 export(hematopoiesis)
 export(listDatasets)
 export(loadExp)
