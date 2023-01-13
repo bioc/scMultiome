@@ -29,6 +29,7 @@
 #'
 #' @keywords internal
 #' @rdname dummies
+#' @export
 #'
 dummySCE <- function(features = c("rowData", "rowRanges", "reducedDims", "altExps", "none")) {
     features <- match.arg(features, several.ok = TRUE)
@@ -97,6 +98,7 @@ dummySCE <- function(features = c("rowData", "rowRanges", "reducedDims", "altExp
 #'
 #' @keywords internal
 #' @rdname dummies
+#' @export
 #'
 dummyMAE <- function(experiments = list("EXP1" = NULL, "EXP2" = NULL)) {
     checkmate::assertList(experiments)
