@@ -77,6 +77,7 @@ tfBinding <- function(genome = c("hg38", "hg19", "mm10"),
     source <- match.arg(source, several.ok = FALSE)
     eh <- AnnotationHub::query(ExperimentHub::ExperimentHub(),
                                pattern = c("scMultiome", "tfBinding", source, genome))
+    eh_ID <- eh$ah_id
     ans <-
         if (metadata) {
             eh[eh_ID]
