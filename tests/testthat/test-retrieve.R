@@ -1,9 +1,8 @@
 
 test_that("resource is returned", {
-    skip("skipping until data is uploaded") # TODO - remove when ready
-    testthat::expect_s4_class(retrieve("tfBinding", metadata = TRUE, experiments = "mm10"),
+    testthat::expect_s4_class(retrieve("reprogramSeq", metadata = TRUE, experiments = "NEPCMatrix"),
                               "ExperimentHub")
-    testthat::expect_s4_class(retrieve("tfBinding", metadata = FALSE, experiments = "mm10"),
+    testthat::expect_s4_class(retrieve("reprogramSeq", metadata = FALSE, experiments = "NEPCMatrix"),
                               "MultiAssayExperiment")
 })
 
