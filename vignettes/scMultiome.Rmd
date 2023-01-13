@@ -55,8 +55,8 @@ knitr::kable(lds, caption = "Available Data Sets")
 ```
 
 Access a data set by calling its accessor function:
-```{r eval = FALSE}
-prostateENZ()
+```{r}
+prostateENZ(metadata = TRUE)
 
 ```
 
@@ -77,8 +77,8 @@ If multiple ChIP-seq files are available for the same transcription factor, the 
 
 The ChIP-seq data is packaged into individual RDS files and they are accessed with a common accessor function, `tfBinding`, specifying the genome and source.
 
-```{r, eval = FALSE}
-tfBinding("hg38", "atlas")
+```{r}
+tfBinding(genome = "hg38", source ="atlas", metadata = TRUE)
 ```
 
 <br><br><br>
@@ -215,7 +215,7 @@ The file also stores metadata that will be returned by `listDatasets`. Likewise,
 
 Once your `make-metadata` file is ready, build the metadata 
 
-```{r build metadata}
+```{r build metadata, eval = FALSE}
 source(system.file("scripts", "make-metadata.R", package = "scMultiome"))
 ```
 
