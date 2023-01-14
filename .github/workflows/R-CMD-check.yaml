@@ -6,6 +6,11 @@ on:
 
 name: R-CMD-check
 
+env:
+  # Setting an environment variable with the value of a configuration variable
+  GITHUB_PAT: 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
+
+
 jobs:
   R-CMD-check:
     runs-on: ubuntu-latest
