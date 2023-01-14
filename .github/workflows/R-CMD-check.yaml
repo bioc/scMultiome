@@ -6,10 +6,6 @@ on:
 
 name: R-CMD-check
 
-env:
-  # Setting an environment variable with the value of a configuration variable
-  GITHUB_PAT: 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
-
 
 jobs:
   R-CMD-check:
@@ -22,6 +18,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          Sys.setenv("GITHUB_PAT", "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")
           local_deps <- remotes::local_package_deps(dependencies = TRUE)
           deps <- remotes::dev_package_deps(dependencies = TRUE, repos = BiocManager::repositories())
           BiocManager::install(local_deps[local_deps %in% deps$package[deps$diff != 0]], Ncpu = 2L)
