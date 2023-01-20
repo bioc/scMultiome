@@ -18,13 +18,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          Sys.setenv(GITHUB_PAT = "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")
           local_deps <- remotes::local_package_deps(dependencies = TRUE)
           deps <- remotes::dev_package_deps(dependencies = TRUE, repos = BiocManager::repositories())
           BiocManager::install(local_deps[local_deps %in% deps$package[deps$diff != 0]], Ncpu = 2L)
           BiocManager::install("ensembldb", Ncpu = 2L)
           remotes::install_cran('rcmdcheck', Ncpu = 2L)
-          devtools::install_github("GreenleafLab/ArchR", ref="master", repos = BiocManager::repositories())
         shell: Rscript {0}
 
       - name: Session info
